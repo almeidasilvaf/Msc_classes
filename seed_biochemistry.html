@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análise de perfis de expressão gênica em tecidos de semente de soja</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fabrício de Almeida Silva" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <link rel="stylesheet" href="assets/venanciolab-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/venanciolab.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análise de perfis de expressão gênica em tecidos de semente de soja
+### Fabrício de Almeida Silva
+### LQFPP / PGBV / UENF
+### Junho, 2021
+
+---
+
+
+
+
+
+
+
+
+
+
+
+background-image: url(https://www.pnas.org/content/pnas/107/18/8063/F1.large.jpg?width=800&amp;height=600&amp;carousel=1)
+background-size: 75%
+background-position: 50% 60%
+
+## Da embriogênese à germinação
+
+.footnote[Le *et al.*, 2010]
+
+---
+
+## Objetivo
+
+.center[.brand-charcoal[.font120[Identificar padrões espaço-temporais de coexpressão gênica em sementes de soja e identificar genes e vias associadas aos padrões.]]]
+
+--
+
+&lt;img src="figs/redes_example1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Objetivo
+
+.center[.brand-charcoal[.font120[Identificar padrões espaço-temporais de coexpressão gênica em sementes de soja e identificar genes e vias associadas aos padrões.]]]
+
+&lt;img src="http://s.glbimg.com/jo/g1/f/original/2013/09/13/odr20130913164.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+
+.footnote[Fonte: G1]
+
+---
+
+class: inverse, center, middle
+
+# Rede #1: Semente
+
+---
+
+## Descrição dos dados
+
+**BioProjects:** 5
+
+.panelset[
+.panel[.panel-name[PRJNA184365]
+Jones SI et al., "Using RNA-Seq to profile soybean seed development from fertilization to maturity.", PLoS One, 2013;8(3):e59270
+
+**Amostras:**
+1. 5 mg
+1. 4 DAF
+1. 12 DAF
+1. 22 DAF
+1. Semente seca
+]
+.panel[.panel-name[PRJNA384236]
+Pereira Lima JJ et al., "Molecular characterization of the acquisition of longevity during seed maturation in soybean.", PLoS One, 2017;12(7):e0180282
+
+.pull-left-1[
+**Amostras:**
+1. Estágio 7.1
+1. Estágio 7.2
+1. Estágio 7.3
+1. Estágio 8.1
+1. Estágio 8.2
+]
+.pull-right-2[
+&lt;img src="https://www.ncbi.nlm.nih.gov/pmc/articles/instance/5507495/bin/pone.0180282.g001.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+]
+]
+.panel[.panel-name[PRJNA140081]
+Lin JY et al., "Similarity between soybean and Arabidopsis seed methylomes and loss of non-CG methylation does not affect seed development.", Proc Natl Acad Sci U S A, 2017 Nov 7;114(45):E9730-E9739
+
+**Amostras:**
+
+1. Estágio globular
+1. Estágio de coração
+1. Estágio cotiledonar
+1. Início da maturação
+1. Meio da maturação
+1. Final da maturação
+1. Semente seca
+]
+.panel[.panel-name[PRJNA384236]
+Título do projeto: "Germinating soybean seed RNAseq analysis"
+
+**Amostras:**
+1. Semente seca
+1. Semente embebida
+1. Semente germinada
+]
+.panel[.panel-name[PRJNA539842]
+Título do projeto: "Transcriptome of soybean ovules and developing seeds"
+
+**Amostras:**
+1. 10 DAF
+2. 20 DAF
+3. 30 DAF
+4. 40 DAF
+]
+]
+
+---
+
+&lt;img src="figs/seedgrey60.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[=========].red[===============].blue[======================].orange[==========]============================
+&amp;emsp;&amp;nbsp;&amp;nbsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Em &amp;rarr; Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Germ
+
+---
+
+&lt;img src="figs/seedlightcyan1.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[=========].red[===============].blue[======================].orange[==========]============================
+&amp;emsp;&amp;nbsp;&amp;nbsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Em &amp;rarr; Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Germ
+
+---
+
+class: inverse, middle, center
+
+# Rede #2: Tegumento
+
+---
+
+## Descrição dos dados
+
+**BioProjects:** 5
+
+.panelset[
+.panel[.panel-name[PRJNA197251]
+Danzer J et al., "Down-Regulating the Expression of 53 Soybean Transcription Factor Genes Uncovers a Role for SPEECHLESS in Initiating Stomatal Cell Lineages during Embryo Development.", Plant Physiol, 2015 Jul;168(3):1025-35
+
+**Amostras:**
+1. Hilo
+1. Osteoesclereídes
+1. Células paliçádicas
+
+]
+.panel[.panel-name[PRJNA246314]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed-Heart Stage"
+
+.pull-left-1[
+**Amostras:**
+1. Endotélio
+1. Epiderme
+1. Integumento interno
+1. Integumento externo
+
+]
+.pull-right-2[
+&lt;img src="http://www.seedbiology.de/html2images/mueller-fig1b.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+.panel[.panel-name[PRJNA246315]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed-Globular Stage"
+
+.pull-left-1[
+**Amostras:**
+1. Endotélio
+1. Epiderme
+1. Integumento interno
+1. Integumento externo
+
+]
+.pull-right-2[
+&lt;img src="http://www.seedbiology.de/html2images/mueller-fig1b.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+.panel[.panel-name[PRJNA246783]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed-Cotyledon Stage"
+
+.pull-left-1[
+**Amostras:**
+1. Endotélio
+1. Epiderme
+1. Integumento interno
+1. Integumento externo
+
+]
+.pull-right-2[
+&lt;img src="http://www.seedbiology.de/html2images/mueller-fig1b.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+.panel[.panel-name[PRJNA387303]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed Mid-Maturation (B1) Stage"
+
+**Amostras:**
+1. Meio da maturação
+]
+]
+
+---
+
+&lt;img src="figs/sc_lavenderblush3.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[============================].red[======================].blue[=======================].orange[============]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;nbsp;Em-Glob
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Em-Heart
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Em-Cot
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+
+---
+
+&lt;img src="figs/sc_darkgrey.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[============================].red[======================].blue[=======================].orange[============]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;nbsp;Em-Glob
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Em-Heart
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Em-Cot
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+
+---
+
+&lt;img src="figs/sc_darkgreen.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[============================].red[======================].blue[=======================].orange[============]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;nbsp;Em-Glob
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Em-Heart
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Em-Cot
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+
+---
+
+class: inverse, middle, center
+
+# Rede #3: Cotilédone
+
+---
+
+## Descrição dos dados
+
+**BioProjects:** 5
+
+.panelset[
+.panel[.panel-name[PRJNA182292]
+Shamimuzzaman M et al., "Transcription factors and glyoxylate cycle genes prominent in the transition of soybean cotyledons to the first functional leaves of the seedling.", Funct Integr Genomics, 2014 Dec;14(4):683-96
+
+**Amostras:**
+- 1-7 dias após a embebição
+]
+
+.panel[.panel-name[PRJNA184365]
+Jones SI et al., "Using RNA-Seq to profile soybean seed development from fertilization to maturity.", PLoS One, 2013;8(3):e59270
+
+**Amostras:**
+1. 5-6 mg 
+1. 100-200 mg
+1. 400-500 mg
+]
+.panel[.panel-name[PRJNA246783]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed-Cotyledon Stage"
+
+**Amostras:**
+1. Estágio cotiledonar
+]
+.panel[.panel-name[PRJNA262564]
+Brown AV et al., "Developmental profiling of gene expression in soybean trifoliate leaves and cotyledons.", BMC Plant Biol, 2015 Jul 3;15:169
+
+**Amostras:**
+1. 4 dias após o plantio
+1. 15 dias após o plantio
+1. 27 dias após o plantio
+]
+.panel[.panel-name[PRJNA387303]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed Mid-Maturation (B1) Stage"
+
+**Amostras:**
+1. Metade da maturação
+]
+]
+
+---
+
+&lt;img src="figs/cot_coral2.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[====================].red[=========].blue[=================================].orange[======================]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Germ+Pós-Germ
+
+---
+
+&lt;img src="figs/cot_darkgrey.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[====================].red[=========].blue[=================================].orange[======================]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Germ+Pós-Germ
+
+---
+
+&lt;img src="figs/cot_darkseagreen2.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[====================].red[=========].blue[=================================].orange[======================]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Germ+Pós-Germ
+
+---
+
+&lt;img src="figs/cot_palevioletred3.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[====================].red[=========].blue[=================================].orange[======================]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Germ+Pós-Germ
+
+---
+
+class: inverse, middle, center
+
+# Rede #4: Embrião
+
+---
+
+## Descrição dos dados
+
+**BioProjects:** 8
+
+.panelset[
+.panel[.panel-name[197251]
+Danzer J et al., "Down-Regulating the Expression of 53 Soybean Transcription Factor Genes Uncovers a Role for SPEECHLESS in Initiating Stomatal Cell Lineages during Embryo Development.", Plant Physiol, 2015 Jul;168(3):1025-35
+
+**Amostras:**
+- Início da maturação
+]
+
+.panel[.panel-name[197379]
+Collakova E et al., "Metabolic and Transcriptional Reprogramming in Developing Soybean (Glycine max) Embryos.", Metabolites, 2013 May 14;3(2):347-72
+
+**Amostras:**
+.pull-left[
+1. MS1
+2. MS2
+3. MS3
+]
+.pull-right[
+&lt;img src="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3901275/bin/metabolites-03-00347-g001.jpg" style="display: block; margin: auto;" /&gt;
+]
+
+]
+.panel[.panel-name[246314]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed-Heart Stage"
+
+**Amostras:**
+1. Estágio de coração
+]
+.panel[.panel-name[246315]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed-Globular Stage"
+
+**Amostras:**
+1. Estágio globular
+]
+.panel[.panel-name[246783]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed-Cotyledon Stage"
+
+**Amostras:**
+1. Estágio cotiledonar
+]
+.panel[.panel-name[387303]
+Título do projeto: "Gene Expression Changes in the Development of the Soybean Seed Mid-Maturation (B1) Stage"
+
+**Amostras:**
+1. Meio da maturação
+]
+.panel[.panel-name[326110]
+Bellieny-Rabelo D et al., "Transcriptome analysis uncovers key regulatory and metabolic aspects of soybean embryonic axes during germination.", Sci Rep, 2016 Nov 8;6:36009
+
+**Amostras:**
+1. 0 horas após a embebição (HAE)
+1. 3 HAE
+1. 6 HAE
+1. 12 HAE
+1. 24 HAE
+]
+.panel[.panel-name[388955]
+Título do projeto: "Gene Expression Changes during embryo and seed maturation, quiescence and germination in soybean"
+
+**Amostras:**
+1. Estágio cotiledonar
+1. Início da maturação
+1. Meio da maturação
+1. Final da maturação
+]
+
+]
+
+---
+
+&lt;img src="figs/emb_coral1.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+---
+
+&lt;img src="figs/emb_darkgrey.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+---
+
+&lt;img src="figs/emb_darkmagenta.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+---
+
+&lt;img src="figs/emb_firebrick3.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+---
+
+&lt;img src="figs/emb_grey60.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+---
+
+&lt;img src="figs/emb_honeydew1.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+---
+
+&lt;img src="figs/emb_ivory.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+---
+
+&lt;img src="figs/emb_pink4.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+---
+
+&lt;img src="figs/emb_thistle.png" width="6400" style="display: block; margin: auto;" /&gt;
+
+.green[==================].red[=======================].blue[================================].orange[===========]
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Emb
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Mat
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;Germ
+
+
+---
+
+class: sydney-yellow, middle, center
+
+## Contato
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm0 48v40.805c-22.422 18.259-58.168 46.651-134.587 106.49-16.841 13.247-50.201 45.072-73.413 44.701-23.208.375-56.579-31.459-73.413-44.701C106.18 199.465 70.425 171.067 48 152.805V112h416zM48 400V214.398c22.914 18.251 55.409 43.862 104.938 82.646 21.857 17.205 60.134 55.186 103.062 54.955 42.717.231 80.509-37.199 103.053-54.947 49.528-38.783 82.032-64.401 104.947-82.653V400H48z"&gt;&lt;/path&gt;&lt;/svg&gt;  [fabricio_almeidasilva@hotmail.com](mailto:fabricio_almeidasilva@hotmail.com)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

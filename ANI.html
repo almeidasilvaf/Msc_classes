@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>ANI na comparação de genomas bacterianos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fabrício de Almeida Silva" />
+    <script src="libs/header-attrs-2.8/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30}) })</script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <link rel="stylesheet" href="assets/venanciolab-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/venanciolab.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# ANI na comparação de genomas bacterianos
+### Fabrício de Almeida Silva
+### LQFPP / PGBV / UENF
+### Junho, 2021
+
+---
+
+
+
+
+
+
+
+
+
+
+
+## Bactérias e o conceito de espécie
+
+&lt;br /&gt;
+
+Bactérias podem ser morfologicamente idênticas, mas fisiologicamente diferentes.
+
+--
+
+Podem adquirir material genético de outras bactérias do mesmo ambiente.
+
+--
+
+.blockquote[
+The bacterial species problem can be summarized as follows: bacteria recombine too little, and yet too much.
+.right[B. Jesse Shapiro]
+]
+
+---
+
+## ANI ("average nucleotide identity")
+
+&lt;br /&gt;
+Considerada o padrão ouro de classificação de espécies bacterianas.
+
+--
+
+Parte de um conjunto de métricas chamadas "overall genome relatedness indices" (OGRIs).
+
+--
+
+**Base lógica:** bactérias da mesma espécie devem ter um grau mínimo de similaridade genômica.
+
+Possível aplicação na delimitação de gênero. 
+
+---
+
+## A técnica
+
+&lt;br /&gt;
+Comparações par-a-par entre genomas. Exemplo para bactérias .red[A] e .blue[B]:
+
+1. Dividir o genoma da .red[bactéria A] em fragmentos de 1020 nucleotídeos
+
+--
+
+2. BLAST dos fragmentos da .red[bactéria A (*query*)] contra o genoma da .blue[bactéria B (*reference*)]
+
+--
+
+3. Filtrar todos os *hits* com identidade &gt;30% e cobertura de &gt;70%
+
+--
+
+4. Calcular identidade média de todos os *hits*
+
+--
+
+5. Repetir o processo, mas invertendo os genomas *query* e *reference*
+
+--
+
+6. Calcular média dos dois resultados **(ANI)**
+
+--
+
+- ANI &gt;= 95% &amp;rarr; mesma espécie
+
+- ANI &lt; 95% &amp;rarr; espécies diferentes
+
+---
+
+background-image: url(figs/hemanoel_ani.png)
+background-size: 45%
+background-position: 50% 70%
+
+## A base teórica por trás do 95%
+
+.footnote[Passarelli-Araujo *et al.,* 2021]
+
+---
+
+## A base teórica por trás do 95%
+
+&lt;img src="figs/bobay.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+.blockquote[
+Because **protein-coding genes are not as selectively constrained as the 16S rRNA subunit**, the ANI threshold used to attain species membership has been empirically defined as **95% based on correlations with 16S sequence threshold** used to define species. (...) Analyses revealed that the **threshold of 70% identity based on DNA–DNA hybridization** assays corresponds approximately to a threshold of **97% identity** when using the 16S rRNA subunit.
+]
+.blockquote[
+ANI thresholds are recognized as much more reliable criteria to define species and 16S rRNA alone is of little taxonomic value when complete genome sequences are available.
+]
+
+---
+
+background-image: url(figs/hemanoel_grafo.png)
+background-size: 40%
+background-position: 50% 70%
+
+## Abordagens baseadas em grafos
+
+.footnote[Passarelli-Araujo *et al.,* 2021]
+
+---
+
+background-image: url(figs/nifH_density.png)
+background-size: 75%
+background-position: 50% 70%
+
+## ANI para delimitação de gênero
+
+---
+
+background-image: url(figs/combined_nifh.png)
+background-size: 75%
+background-position: 50% 70%
+
+## ANI para delimitação de gênero
+
+---
+
+## Derivações do ANI
+
+1. **ANIm** (Richter e Rossello-Mora, 2009): substitui o BLAST pelo MUMmer.
+
+2. **OrthoANI** (Lee *et al*., 2016): fragmenta ambos os genomas e
+considera apenas os fragmentos que apresentam “best hit recíproco" (RBH) para calcular a identidade média, usando BLAST e USEARCH.
+
+3. **gANI** (Varghese *et al*., 2015): considera apenas regiões codificantes na análise.
+
+&lt;br /&gt;
+.bold[.brand-charcoal[Nota importante sobre os cortes:]]
+
+- ANIb, ANIm e OrthoANI: 95%
+
+- gANI: 96,5%
+
+---
+
+## Prós e contras
+
+&lt;br /&gt;
+
+**Vantagens:**
+
+- Padrão ouro, amplamente utilizado
+
+- Mais preciso que as demais técnicas*
+
+
+**Desvantagens:**
+
+- Algoritmo `\(O(n^2)\)`
+
+- Requer genoma completo (mais caro)
+
+&lt;br /&gt;
+\*Estudo de caso: *Shigella flexneri* e *Escherichia coli* têm 97.75% de ANI &amp;rarr; espécies diferentes?
+
+---
+
+## Leitura recomendada #1
+
+&lt;img src="figs/paper1.png" width="1149" style="display: block; margin: auto;" /&gt;
+
+&lt;br /&gt;
+Leitura clássica para consolidar um conhecimento de base. Link [**aqui**](https://doi.org/10.1099/ijs.0.64483-0).
+
+---
+
+## Leitura recomendada #2
+
+&lt;img src="figs/paper2.png" width="1020" style="display: block; margin: auto;" /&gt;
+
+Artigo de revisão que descreve o estado-da-arte da taxonomia bacteriana na era dos genomas completos. Link [**aqui**](https://www.nature.com/articles/s41396-021-00941-x).
+
+---
+
+class: sydney-yellow, middle, center
+
+## Contato
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm0 48v40.805c-22.422 18.259-58.168 46.651-134.587 106.49-16.841 13.247-50.201 45.072-73.413 44.701-23.208.375-56.579-31.459-73.413-44.701C106.18 199.465 70.425 171.067 48 152.805V112h416zM48 400V214.398c22.914 18.251 55.409 43.862 104.938 82.646 21.857 17.205 60.134 55.186 103.062 54.955 42.717.231 80.509-37.199 103.053-54.947 49.528-38.783 82.032-64.401 104.947-82.653V400H48z"&gt;&lt;/path&gt;&lt;/svg&gt;  [fabricio_almeidasilva@hotmail.com](mailto:fabricio_almeidasilva@hotmail.com)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
