@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>ANI na comparação de genomas bacterianos</title>
+    <title>Bases estruturais da defesa de plantas</title>
     <meta charset="utf-8" />
     <meta name="author" content="Fabrício de Almeida Silva" />
     <script src="libs/header-attrs-2.8/header-attrs.js"></script>
@@ -14,6 +14,10 @@
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
     <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/NGLVieweR-2.0.0/./lib/NGL-2.0.0/ngl.js"></script>
+    <script src="libs/helperFunctions-1/./lib/helperFunctions.js"></script>
+    <script src="libs/NGLVieweR-binding-1.3.1/NGLVieweR.js"></script>
     <link rel="stylesheet" href="assets/venanciolab-fonts.css" type="text/css" />
     <link rel="stylesheet" href="assets/venanciolab.css" type="text/css" />
   </head>
@@ -21,7 +25,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# ANI na comparação de genomas bacterianos
+# Bases estruturais da defesa de plantas
 ### Fabrício de Almeida Silva
 ### LQFPP / PGBV / UENF
 ### Junho, 2021
@@ -38,180 +42,244 @@ class: center, middle, inverse, title-slide
 
 
 
-## Bactérias e o conceito de espécie
-
-&lt;br /&gt;
-
-Bactérias podem ser morfologicamente idênticas, mas fisiologicamente diferentes.
-
---
-
-Podem adquirir material genético de outras bactérias do mesmo ambiente.
-
---
-
-.blockquote[
-The bacterial species problem can be summarized as follows: bacteria recombine too little, and yet too much.
-.right[B. Jesse Shapiro]
-]
-
----
-
-## ANI ("average nucleotide identity")
-
-&lt;br /&gt;
-Considerada o padrão ouro de classificação de espécies bacterianas.
-
---
-
-Parte de um conjunto de métricas chamadas "overall genome relatedness indices" (OGRIs).
-
---
-
-**Base lógica:** bactérias da mesma espécie devem ter um grau mínimo de similaridade genômica.
-
-Possível aplicação na delimitação de gênero. 
-
----
-
-## A técnica
-
-&lt;br /&gt;
-Comparações par-a-par entre genomas. Exemplo para bactérias .red[A] e .blue[B]:
-
-1. Dividir o genoma da .red[bactéria A] em fragmentos de 1020 nucleotídeos
-
---
-
-2. BLAST dos fragmentos da .red[bactéria A (*query*)] contra o genoma da .blue[bactéria B (*reference*)]
-
---
-
-3. Filtrar todos os *hits* com identidade &gt;30% e cobertura de &gt;70%
-
---
-
-4. Calcular identidade média de todos os *hits*
-
---
-
-5. Repetir o processo, mas invertendo os genomas *query* e *reference*
-
---
-
-6. Calcular média dos dois resultados **(ANI)**
-
---
-
-- ANI &gt;= 95% &amp;rarr; mesma espécie
-
-- ANI &lt; 95% &amp;rarr; espécies diferentes
-
----
-
-background-image: url(figs/ani/hemanoel_ani.png)
+background-image: url(figs/ep/pti_eti.png)
+background-position: 95% 50%
 background-size: 45%
-background-position: 50% 70%
 
-## A base teórica por trás do 95%
+## Defesa de plantas
 
-.footnote[Passarelli-Araujo *et al.,* 2021]
+.pull-left[
+Imunidade inata ativa em todas as células.
 
----
+2 linhas de defesa:
 
-## A base teórica por trás do 95%
-
-&lt;img src="figs/ani/bobay.png" width="75%" style="display: block; margin: auto;" /&gt;
-
-.blockquote[
-Because **protein-coding genes are not as selectively constrained as the 16S rRNA subunit**, the ANI threshold used to attain species membership has been empirically defined as **95% based on correlations with 16S sequence threshold** used to define species. (...) Analyses revealed that the **threshold of 70% identity based on DNA–DNA hybridization** assays corresponds approximately to a threshold of **97% identity** when using the 16S rRNA subunit.
-]
-.blockquote[
-ANI thresholds are recognized as much more reliable criteria to define species and 16S rRNA alone is of little taxonomic value when complete genome sequences are available.
+1. PTI (imunidade desencadeada por padrões):
+  - PRRs reconhecem PAMPs/DAMPs
+2. ETI (imunidade desencadeada por efetores):
+  - NLRs reconhecem efetores dos patógenos
 ]
 
----
-
-background-image: url(figs/ani/hemanoel_grafo.png)
-background-size: 40%
-background-position: 50% 70%
-
-## Abordagens baseadas em grafos
-
-.footnote[Passarelli-Araujo *et al.,* 2021]
+.footnote[Song *et al.*, 2020]
 
 ---
 
-background-image: url(figs/ani/nifH_density.png)
-background-size: 75%
-background-position: 50% 70%
+class: center, middle, inverse
 
-## ANI para delimitação de gênero
+# PTI: a linha de frente da defesa de plantas
 
 ---
 
-background-image: url(figs/ani/combined_nifh.png)
-background-size: 75%
-background-position: 50% 70%
-
-## ANI para delimitação de gênero
-
----
-
-## Derivações do ANI
-
-1. **ANIm** (Richter e Rossello-Mora, 2009): substitui o BLAST pelo MUMmer.
-
-2. **OrthoANI** (Lee *et al*., 2016): fragmenta ambos os genomas e
-considera apenas os fragmentos que apresentam “best hit recíproco" (RBH) para calcular a identidade média, usando BLAST e USEARCH.
-
-3. **gANI** (Varghese *et al*., 2015): considera apenas regiões codificantes na análise.
+## Receptores de reconhecimento de padrões (PRRs)
 
 &lt;br /&gt;
-.bold[.brand-charcoal[Nota importante sobre os cortes:]]
+Quinases semelhantes a receptores (RLK) e proteínas semelhantes a receptores (RLPs).
 
-- ANIb, ANIm e OrthoANI: 95%
+--
 
-- gANI: 96,5%
+Reconhecem padrões moleculares associados a patógenos (PAMPs) e danos (DAMPs).
 
----
+--
 
-## Prós e contras
+.pull-left[
+- RLKs: 
 
-&lt;br /&gt;
+1. Domínio extracelular (reconhecimento)
+2. Domínio transmembrana
+3. Domínio quinase intracelular (transdução)
+]
+.pull-right[
+- RLPs:
 
-**Vantagens:**
+1. Domínio extracelular (reconhecimento)
+2. Domínio transmembrana
+]
 
-- Padrão ouro, amplamente utilizado
+--
 
-- Mais preciso que as demais técnicas*
-
-
-**Desvantagens:**
-
-- Algoritmo `\(O(n^2)\)`
-
-- Requer genoma completo (mais caro)
-
-&lt;br /&gt;
-\*Estudo de caso: *Shigella flexneri* e *Escherichia coli* têm 97.75% de ANI &amp;rarr; espécies diferentes?
+RLPs precisam de um correceptor para a transdução de sinal.
 
 ---
 
-## Leitura recomendada #1
-
-&lt;img src="figs/ani/paper1.png" width="1149" style="display: block; margin: auto;" /&gt;
+## Classificação de PRRs
 
 &lt;br /&gt;
-Leitura clássica para consolidar um conhecimento de base. Link [**aqui**](https://doi.org/10.1099/ijs.0.64483-0).
+PRRs podem ser classificados em subfamílias de acordo com o domínio extracelular:
+
+.bold[.font110[.brand-charcoal[Principais subfamílias:]]]
+- Repetições ricas em leucina (LRR)
+- Motivo lisina (LysM)
+- Lectinas
+- Quinases associadas a parede (WAK)
+
+--
+
+O reconhecimento de PAMPs/DAMPs induz a dimerização dos PRRs e ativa:
+- Produção de ROS
+- Influxo de cálcio
+- Alcalinização do meio extracelular
+- Expressão de genes de defesa
 
 ---
 
-## Leitura recomendada #2
+## Reconhecimento de PAMPs por PRRs
 
-&lt;img src="figs/ani/paper2.png" width="1020" style="display: block; margin: auto;" /&gt;
+.panelset.sideways[
+.panel[.panel-name[Flagelina]
+.pull-left-2[
+Componente monomérico do flagelo bacteriano.
 
-Artigo de revisão que descreve o estado-da-arte da taxonomia bacteriana na era dos genomas completos. Link [**aqui**](https://www.nature.com/articles/s41396-021-00941-x).
+Fragmento de 22 resíduos de aminoácidos (flg22) é reconhecido por `\(FLS2^{LRR}\)` em *A. thaliana*.
+
+`\(FLS2^{LRR}\)` reconhece flg22 por ligações de H e interações hidrofóbicas.
+
+A interação `\(FLS2^{LRR}\)`-flg22 não induz mudança conformacional, mas cria um sítio de adesão ao correceptor BAK1.
+
+`\(FLS2^{LRR}\)` e BAK1 (**heterodímero**) interagem por interações hidrofóbicas e forças de Van der Waals.
+
+]
+.pull-right-1[
+&lt;img src="figs/ep/flagelina.png" width="90%" style="display: block; margin: auto;" /&gt;
+.font60[Song *et al.*, 2020]
+]
+]
+.panel[.panel-name[Quitina]
+.pull-left-2[
+Polímero de *N*-acetilglicosamina (NAG) presente na parede de fungos e exoesqueleto de artrópodes.
+
+*CERK1* e *LYK5* reconhecem oligossacarídeos de quitina em *A. thaliana*.
+
+Domínio extracelular **LysM:** ligação a carboidratos - `\(\beta\)` - `\(\alpha\)` - `\(\alpha\)` - `\(\beta\)`
+
+*AtCERK1*: trímero (LysM1, **LysM2** e LysM3) ligado por ligacões dissulfeto.
+
+LysM2 reconhece radical N-acetil e consegue distinguir NAG de glicose.
+]
+.pull-right-1[
+&lt;img src="figs/ep/quitina.png" width="85%" style="display: block; margin: auto;" /&gt;
+.font50[Song *et al.*, 2020]
+]
+]
+.panel[.panel-name[Outros PAMPs]
+- **Peptidoglicanos:** 
+  - Componentes de paredes bacterianas.
+  - Reconhecidos por LYM1 e LYM3
+
+- **EF-Tu:** 
+  - Fator de alongamento bacteriano
+  - Reconhecido por EFRs
+  
+- **Lipopolissacarídeos (LPS):**
+  - Componentes de paredes de bactérias Gram -
+  - Reconhecidos por LOREs
+]
+]
+]
+
+---
+
+## Reconhecimento de DAMPs por PRRs
+
+.panelset.sideways[
+.panel[.panel-name[Definição]
+**Padrões do hospedeiro** que atuam como sinais endógenos de ativação da PTI, como:
+
+1. Polipeptídeos precursores que podem sofrer clivagem proteolítica:
+  - sisteminas
+  - peptídeos eliciadores de plantas (Peps), reconhecidos por PEPRs
+  - peptídeos secretados induzidos por PAMPs (PIPs), reconhecidos por RLK7
+
+2. Nucleotídeos e derivados, como ATP (reconhecidos por DORN1).
+
+3. Oligogalacturonídeos, subprodutos da degradação da parede celular (reconhecidos por WAK).
+]
+.panel[.panel-name[Peps]
+.pull-left-2[
+Danos induzem a maturação de ProPeps através de processamento por metacaspase dependente de `\(Ca^{2+}\)`.
+
+Peps maduros têm 23 resíduos de aminoácidos e são reconhecidos por PEPRs no espaço extracelular.
+
+PEPRs se enovelam em estrutura superhelicoidal como `\(FLS2^{LRR}\)`.
+
+C-terminal de Peps altamente conservada: interação com o receptor, mediando interação com o correceptor BAK1.
+]
+.pull-right-1[
+&lt;img src="figs/ep/peps.png" width="349" style="display: block; margin: auto;" /&gt;
+]
+]
+
+]
+
+---
+
+## Ativação de PRRs por correceptores quinases
+
+.footnote[Song *et al.*, 2020]
+.pull-left-2[
+&lt;br /&gt;
+Domínio quinase é essencial para a transdução de sinal.
+
+RLPs dependem de dimerização com correceptores quinases.
+
+Interação com o ligante induz a formação de homo/heterodímeros.
+
+PRRs que têm domínio quinase podem ter correceptor quinase: **transfosforilação**.
+]
+.pull-right-1[
+&lt;img src="figs/ep/correceptor.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Regulação negativa de PRRs e homeostase
+
+.footnote[Song *et al.*, 2020]
+.pull-left-2[
+&lt;br /&gt;
+Excesso de resposta imune é prejudicial: apoptose.
+
+Receptores BIR como reguladores negativos da morte celular:
+  - mutantes BIR- resutam em ativação da apoptose e resposta imune .font70[(Gao *et al.*, 2009)]
+
+BIR forma um heterodímero com BAK1 via interações polares e hidrofóbicas, impedindo sua interação com `\(FLS2^{LRR}\)`.
+
+Interação BIR-BAK1 dependente de pH: menor pH favorece.
+
+]
+.pull-right-1[
+&lt;img src="figs/ep/regulacao_negativa.png" width="65%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+background-image: url(figs/ep/prr.png)
+background-size: 95%
+background-position: 50% 60%
+
+## PTI: resumo
+
+---
+
+class: center, middle, inverse
+
+# ETI: detecção e defesa de invasores intracelulares
+
+---
+
+## PR-1
+
+&lt;br /&gt;
+.pull-left-2[
+Proteínas antifúngicas e antivirais
+
+.bold[.brand-charcoal[Domínio conservado:]] &lt;br /&gt; CAP (caveolin-binding, antigen 5, pathogenesis-related 1)
+
+.bold[.brand-charcoal[Mecanismo de ação:]] &lt;br /&gt; Sequestro de esteróis da membrana do patógeno
+]
+
+.pull-right-1[
+<div id="htmlwidget-a77f746fda033c15742b" style="width:400px;height:400px;" class="NGLVieweR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a77f746fda033c15742b">{"x":{"data":"rcsb://6V8S.pdb","type":"code","stageParameters":[],"addRepresentation":{"type":["cartoon"],"values":[[]]},"setQuality":"medium","setRock":false,"toggleRock":false,"setSpin":false,"setFocus":0,"toggleSpin":false,"zoomMove":[]},"evals":[],"jsHooks":[]}</script>
+]
 
 ---
 

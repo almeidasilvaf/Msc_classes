@@ -1,0 +1,303 @@
+---
+title: "Bases estruturais da defesa de plantas"
+author: "Fabrício de Almeida Silva"
+institute: "LQFPP / PGBV / UENF"
+date: "Junho, 2021"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "assets/venanciolab-fonts.css", "assets/venanciolab.css"]
+    self_contained: false
+    seal: true
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "https://platform.twitter.com/widgets.js"
+      navigation:
+        scroll: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, warning = FALSE, message = FALSE,
+  fig.width = 7, fig.height = 2.5, 
+  fig.align='center'
+)
+options(htmltools.dir.version = TRUE)
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringan-scribble, echo=FALSE}
+xaringanExtra::use_scribble()
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+background-image: url(figs/ep/pti_eti.png)
+background-position: 95% 50%
+background-size: 45%
+
+## Defesa de plantas
+
+.pull-left[
+Imunidade inata ativa em todas as células.
+
+2 linhas de defesa:
+
+1. PTI (imunidade desencadeada por padrões):
+  - PRRs reconhecem PAMPs/DAMPs
+2. ETI (imunidade desencadeada por efetores):
+  - NLRs reconhecem efetores dos patógenos
+]
+
+.footnote[Song *et al.*, 2020]
+
+---
+
+class: center, middle, inverse
+
+# PTI: a linha de frente da defesa de plantas
+
+---
+
+## Receptores de reconhecimento de padrões (PRRs)
+
+<br />
+Quinases semelhantes a receptores (RLK) e proteínas semelhantes a receptores (RLPs).
+
+--
+
+Reconhecem padrões moleculares associados a patógenos (PAMPs) e danos (DAMPs).
+
+--
+
+.pull-left[
+- RLKs: 
+
+1. Domínio extracelular (reconhecimento)
+2. Domínio transmembrana
+3. Domínio quinase intracelular (transdução)
+]
+.pull-right[
+- RLPs:
+
+1. Domínio extracelular (reconhecimento)
+2. Domínio transmembrana
+]
+
+--
+
+RLPs precisam de um correceptor para a transdução de sinal.
+
+---
+
+## Classificação de PRRs
+
+<br />
+PRRs podem ser classificados em subfamílias de acordo com o domínio extracelular:
+
+.bold[.font110[.brand-charcoal[Principais subfamílias:]]]
+- Repetições ricas em leucina (LRR)
+- Motivo lisina (LysM)
+- Lectinas
+- Quinases associadas a parede (WAK)
+
+--
+
+O reconhecimento de PAMPs/DAMPs induz a dimerização dos PRRs e ativa:
+- Produção de ROS
+- Influxo de cálcio
+- Alcalinização do meio extracelular
+- Expressão de genes de defesa
+
+---
+
+## Reconhecimento de PAMPs por PRRs
+
+.panelset.sideways[
+.panel[.panel-name[Flagelina]
+.pull-left-2[
+Componente monomérico do flagelo bacteriano.
+
+Fragmento de 22 resíduos de aminoácidos (flg22) é reconhecido por $FLS2^{LRR}$ em *A. thaliana*.
+
+$FLS2^{LRR}$ reconhece flg22 por ligações de H e interações hidrofóbicas.
+
+A interação $FLS2^{LRR}$-flg22 não induz mudança conformacional, mas cria um sítio de adesão ao correceptor BAK1.
+
+$FLS2^{LRR}$ e BAK1 (**heterodímero**) interagem por interações hidrofóbicas e forças de Van der Waals.
+
+]
+.pull-right-1[
+```{r out.width='90%'} 
+knitr::include_graphics("figs/ep/flagelina.png")
+```
+.font60[Song *et al.*, 2020]
+]
+]
+.panel[.panel-name[Quitina]
+.pull-left-2[
+Polímero de *N*-acetilglicosamina (NAG) presente na parede de fungos e exoesqueleto de artrópodes.
+
+*CERK1* e *LYK5* reconhecem oligossacarídeos de quitina em *A. thaliana*.
+
+Domínio extracelular **LysM:** ligação a carboidratos - $\beta$ - $\alpha$ - $\alpha$ - $\beta$
+
+*AtCERK1*: trímero (LysM1, **LysM2** e LysM3) ligado por ligacões dissulfeto.
+
+LysM2 reconhece radical N-acetil e consegue distinguir NAG de glicose.
+]
+.pull-right-1[
+```{r out.width='85%'}
+knitr::include_graphics("figs/ep/quitina.png")
+```
+.font50[Song *et al.*, 2020]
+]
+]
+.panel[.panel-name[Outros PAMPs]
+- **Peptidoglicanos:** 
+  - Componentes de paredes bacterianas.
+  - Reconhecidos por LYM1 e LYM3
+
+- **EF-Tu:** 
+  - Fator de alongamento bacteriano
+  - Reconhecido por EFRs
+  
+- **Lipopolissacarídeos (LPS):**
+  - Componentes de paredes de bactérias Gram -
+  - Reconhecidos por LOREs
+]
+]
+]
+
+---
+
+## Reconhecimento de DAMPs por PRRs
+
+.panelset.sideways[
+.panel[.panel-name[Definição]
+**Padrões do hospedeiro** que atuam como sinais endógenos de ativação da PTI, como:
+
+1. Polipeptídeos precursores que podem sofrer clivagem proteolítica:
+  - sisteminas
+  - peptídeos eliciadores de plantas (Peps), reconhecidos por PEPRs
+  - peptídeos secretados induzidos por PAMPs (PIPs), reconhecidos por RLK7
+
+2. Nucleotídeos e derivados, como ATP (reconhecidos por DORN1).
+
+3. Oligogalacturonídeos, subprodutos da degradação da parede celular (reconhecidos por WAK).
+]
+.panel[.panel-name[Peps]
+.pull-left-2[
+Danos induzem a maturação de ProPeps através de processamento por metacaspase dependente de $Ca^{2+}$.
+
+Peps maduros têm 23 resíduos de aminoácidos e são reconhecidos por PEPRs no espaço extracelular.
+
+PEPRs se enovelam em estrutura superhelicoidal como $FLS2^{LRR}$.
+
+C-terminal de Peps altamente conservada: interação com o receptor, mediando interação com o correceptor BAK1.
+]
+.pull-right-1[
+```{r}
+knitr::include_graphics("figs/ep/peps.png")
+```
+]
+]
+
+]
+
+---
+
+## Ativação de PRRs por correceptores quinases
+
+.footnote[Song *et al.*, 2020]
+.pull-left-2[
+<br />
+Domínio quinase é essencial para a transdução de sinal.
+
+RLPs dependem de dimerização com correceptores quinases.
+
+Interação com o ligante induz a formação de homo/heterodímeros.
+
+PRRs que têm domínio quinase podem ter correceptor quinase: **transfosforilação**.
+]
+.pull-right-1[
+```{r out.width='50%'}
+knitr::include_graphics("figs/ep/correceptor.png")
+```
+]
+
+---
+
+## Regulação negativa de PRRs e homeostase
+
+.footnote[Song *et al.*, 2020]
+.pull-left-2[
+<br />
+Excesso de resposta imune é prejudicial: apoptose.
+
+Receptores BIR como reguladores negativos da morte celular:
+  - mutantes BIR- resutam em ativação da apoptose e resposta imune .font70[(Gao *et al.*, 2009)]
+
+BIR forma um heterodímero com BAK1 via interações polares e hidrofóbicas, impedindo sua interação com $FLS2^{LRR}$.
+
+Interação BIR-BAK1 dependente de pH: menor pH favorece.
+
+]
+.pull-right-1[
+```{r out.width='65%'}
+knitr::include_graphics("figs/ep/regulacao_negativa.png")
+```
+]
+
+---
+
+background-image: url(figs/ep/prr.png)
+background-size: 95%
+background-position: 50% 60%
+
+## PTI: resumo
+
+---
+
+class: center, middle, inverse
+
+# ETI: detecção e defesa de invasores intracelulares
+
+---
+
+## PR-1
+
+<br />
+.pull-left-2[
+Proteínas antifúngicas e antivirais
+
+.bold[.brand-charcoal[Domínio conservado:]] <br /> CAP (caveolin-binding, antigen 5, pathogenesis-related 1)
+
+.bold[.brand-charcoal[Mecanismo de ação:]] <br /> Sequestro de esteróis da membrana do patógeno
+]
+
+.pull-right-1[
+```{r pr1}
+library(NGLVieweR)
+NGLVieweR("6V8S", height = '400px', width='400px') %>%
+  addRepresentation("cartoon")
+```
+]
+
+---
+
+class: sydney-yellow, middle, center
+
+## Contato
+
+`r icons::fontawesome("envelope")`  [fabricio_almeidasilva@hotmail.com](mailto:fabricio_almeidasilva@hotmail.com)
+

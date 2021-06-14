@@ -112,7 +112,7 @@ Comparações par-a-par entre genomas. Exemplo para bactérias .red[A] e .blue[B
 
 ---
 
-background-image: url(figs/hemanoel_ani.png)
+background-image: url(figs/ani/hemanoel_ani.png)
 background-size: 45%
 background-position: 50% 70%
 
@@ -125,7 +125,7 @@ background-position: 50% 70%
 ## A base teórica por trás do 95%
 
 ```{r out.width='75%'}
-knitr::include_graphics("figs/bobay.png")
+knitr::include_graphics("figs/ani/bobay.png")
 ```
 
 .blockquote[
@@ -137,7 +137,7 @@ ANI thresholds are recognized as much more reliable criteria to define species a
 
 ---
 
-background-image: url(figs/hemanoel_grafo.png)
+background-image: url(figs/ani/hemanoel_grafo.png)
 background-size: 40%
 background-position: 50% 70%
 
@@ -147,7 +147,7 @@ background-position: 50% 70%
 
 ---
 
-background-image: url(figs/nifH_density.png)
+background-image: url(figs/ani/nifH_density.png)
 background-size: 75%
 background-position: 50% 70%
 
@@ -155,7 +155,7 @@ background-position: 50% 70%
 
 ---
 
-background-image: url(figs/combined_nifh.png)
+background-image: url(figs/ani/combined_nifh.png)
 background-size: 75%
 background-position: 50% 70%
 
@@ -206,7 +206,7 @@ considera apenas os fragmentos que apresentam “best hit recíproco" (RBH) para
 ## Leitura recomendada #1
 
 ```{r}
-knitr::include_graphics("figs/paper1.png")
+knitr::include_graphics("figs/ani/paper1.png")
 ```
 
 <br />
@@ -217,7 +217,7 @@ Leitura clássica para consolidar um conhecimento de base. Link [**aqui**](https
 ## Leitura recomendada #2
 
 ```{r}
-knitr::include_graphics("figs/paper2.png")
+knitr::include_graphics("figs/ani/paper2.png")
 ```
 
 Artigo de revisão que descreve o estado-da-arte da taxonomia bacteriana na era dos genomas completos. Link [**aqui**](https://www.nature.com/articles/s41396-021-00941-x).
