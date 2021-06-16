@@ -415,7 +415,7 @@ knitr::include_graphics("https://www.researchgate.net/profile/Shahbaz-Sahi/publi
 ]
 
 .pull-right-1[
-```{r pr1}
+```{r pr1, screenshot.force=FALSE}
 library(NGLVieweR)
 NGLVieweR("6V8S", height = '400px', width='400px') %>%
   addRepresentation("cartoon")
@@ -438,7 +438,7 @@ NGLVieweR("6V8S", height = '400px', width='400px') %>%
 ]
 
 .pull-right-1[
-```{r pr2}
+```{r pr2, screenshot.force=FALSE}
 NGLVieweR::NGLVieweR("4HPG", height = '300px', width='300px') %>%
   NGLVieweR::addRepresentation("cartoon")
 ```
@@ -461,7 +461,7 @@ Hidrólise da matriz peritrófica de insetos
 ]
 
 .pull-right-1[
-```{r quitinases}
+```{r quitinases, screenshot.force=FALSE}
 NGLVieweR("3AQU", height = '400px', width='400px') %>%
   addRepresentation("cartoon")
 ```
@@ -485,8 +485,7 @@ Sinalização (indução de apoptose)
 ]
 
 .pull-right-1[
-```{r pr5}
-library(NGLVieweR)
+```{r pr5, screenshot.force=FALSE}
 NGLVieweR("1Z3Q", height = '400px', width='400px') %>%
   addRepresentation("cartoon")
 ```
@@ -509,8 +508,7 @@ Inibição de proteases secretadas por micro-organismos
 ]
 
 .pull-right-1[
-```{r pr6}
-library(NGLVieweR)
+```{r pr6, screenshot.force=FALSE}
 NGLVieweR("2R33", height = '400px', width='400px') %>%
   addRepresentation("cartoon")
 ```
@@ -535,8 +533,7 @@ Liberação de fitormônios de defesa
 ]
 
 .pull-right-1[
-```{r pr7}
-library(NGLVieweR)
+```{r pr7, screenshot.force=FALSE}
 NGLVieweR("1PPP", height = '400px', width='400px') %>%
   addRepresentation("cartoon")
 ```
@@ -560,8 +557,7 @@ Sinalização de defesa
 ]
 
 .pull-right-1[
-```{r pr9}
-library(NGLVieweR)
+```{r pr9, screenshot.force=FALSE}
 NGLVieweR("1QGJ", height = '400px', width='400px') %>%
   addRepresentation("cartoon")
 ```
@@ -586,8 +582,7 @@ Indução de apoptose
 ]
 
 .pull-right-1[
-```{r pr10}
-library(NGLVieweR)
+```{r pr10, screenshot.force=FALSE}
 # NGLVieweR("1VK0", height = '400px', width='400px') %>%
 #   addRepresentation("cartoon")
 
@@ -617,7 +612,7 @@ NGLVieweR(here::here("data", "1vk0.pdb"), height='400px', width='400px') %>%
 ]
 
 .pull-right-1[
-```{r oxo}
+```{r oxo, screenshot.force=FALSE}
 library(NGLVieweR)
 NGLVieweR("1FI2", height = '400px', width='400px') %>%
   addRepresentation("cartoon")
