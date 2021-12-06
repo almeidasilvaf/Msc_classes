@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Modelos estatísticos: fundamentos e aplicações em Genética Quantitativa</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fabrício de Almeida Silva" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <link rel="stylesheet" href="assets/venanciolab-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/venanciolab.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Modelos estatísticos: fundamentos e aplicações em Genética Quantitativa
+### Fabrício de Almeida Silva
+### LQFPP / PGBV / UENF
+### Junho, 2021
+
+---
+
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+
+# Distribuições estatísticas
+
+---
+
+## Distribuições estatísticas
+
+&lt;br /&gt;
+Funções matemáticas que podem ser usadas para predizer as probabilidades associadas a cada possível destino de uma variável aleatória. 
+
+Podem ser: 
+- discretas
+- contínuas
+
+Cada modelo estatístico assume uma distribuição teórica para a variável em questão.
+
+---
+
+## Distribuição Binomial
+
+.panelset.sideways[
+.panel[.panel-name[Definição]
+Descreve a probabilidade de observarmos `\(S = k\)` sucessos em N tentativas. Ou seja:
+
+$$
+\mbox{Pr}(S=k) = {N \choose k}p^k (1-p)^{N-k}
+$$
+sendo `\(p\)` a probabilidade de sucesso.
+
+]
+.panel[.panel-name[Exemplo]
+1000 ervilhas da geração F2 do experimento de Mendel. Amostrando 10 ervilhas ao acaso, com que frequência poderíamos observar k ervilhas amarelas (V_)?
+
+
+
+.pull-left-2[
+
+```r
+p &lt;- 0.75
+N &lt;- 10
+k &lt;- 0:N
+tabela_dbinom &lt;- data.frame(
+    N_amarelas = k,
+*   Probabilidade = dbinom(k, size = N,
+*                          prob = p)
+)
+tabela_dbinom$Porcentagem &lt;- round(tabela_dbinom$Probabilidade * 100, 3)
+gt::gt(tabela_dbinom)
+```
+]
+.pull-right-1[
+<div id="wheyxxgcpb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#wheyxxgcpb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wheyxxgcpb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wheyxxgcpb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wheyxxgcpb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wheyxxgcpb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wheyxxgcpb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wheyxxgcpb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wheyxxgcpb .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wheyxxgcpb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wheyxxgcpb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wheyxxgcpb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wheyxxgcpb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wheyxxgcpb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#wheyxxgcpb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wheyxxgcpb .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wheyxxgcpb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wheyxxgcpb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#wheyxxgcpb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wheyxxgcpb .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#wheyxxgcpb .gt_left {
+  text-align: left;
+}
+
+#wheyxxgcpb .gt_center {
+  text-align: center;
+}
+
+#wheyxxgcpb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wheyxxgcpb .gt_font_normal {
+  font-weight: normal;
+}
+
+#wheyxxgcpb .gt_font_bold {
+  font-weight: bold;
+}
+
+#wheyxxgcpb .gt_font_italic {
+  font-style: italic;
+}
+
+#wheyxxgcpb .gt_super {
+  font-size: 65%;
+}
+
+#wheyxxgcpb .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">N_amarelas</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Probabilidade</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Porcentagem</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0.0000009536743</td>
+<td class="gt_row gt_right">0.000</td></tr>
+    <tr><td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">0.0000286102295</td>
+<td class="gt_row gt_right">0.003</td></tr>
+    <tr><td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">0.0003862380981</td>
+<td class="gt_row gt_right">0.039</td></tr>
+    <tr><td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">0.0030899047852</td>
+<td class="gt_row gt_right">0.309</td></tr>
+    <tr><td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">0.0162220001221</td>
+<td class="gt_row gt_right">1.622</td></tr>
+    <tr><td class="gt_row gt_right">5</td>
+<td class="gt_row gt_right">0.0583992004395</td>
+<td class="gt_row gt_right">5.840</td></tr>
+    <tr><td class="gt_row gt_right">6</td>
+<td class="gt_row gt_right">0.1459980010986</td>
+<td class="gt_row gt_right">14.600</td></tr>
+    <tr><td class="gt_row gt_right">7</td>
+<td class="gt_row gt_right">0.2502822875977</td>
+<td class="gt_row gt_right">25.028</td></tr>
+    <tr><td class="gt_row gt_right">8</td>
+<td class="gt_row gt_right">0.2815675735474</td>
+<td class="gt_row gt_right">28.157</td></tr>
+    <tr><td class="gt_row gt_right">9</td>
+<td class="gt_row gt_right">0.1877117156982</td>
+<td class="gt_row gt_right">18.771</td></tr>
+    <tr><td class="gt_row gt_right">10</td>
+<td class="gt_row gt_right">0.0563135147095</td>
+<td class="gt_row gt_right">5.631</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+]
+
+]
+.panel[.panel-name[Visualização]
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+
+## Distribuição de Poisson
+
+.panelset.sideways[
+.panel[.panel-name[Definição]
+
+Quando a probabilidade de sucesso `\(p\)` é muito pequena e o número de tentativas `\(N\)` é muito grande, a distribuição binomial pode ser aproximada pela distribuição de Poisson com taxa `\(\lambda = np\)`. As probabilidades de uma distribuição de Poisson podem ser obtidas com:
+
+$$
+\mbox{Pr}(S=k) = \frac{\lambda^k e^{-\lambda}} {k!}
+$$
+
+]
+
+.panel[.panel-name[Exemplo]
+Mutações no genoma do vírus do mosaico da soja (10 kbp) ocorrem aleatoriamente com taxas de `\(5 \times 10^{-4}\)` /nucleotídeo/ciclo de replicação. 
+
+.pull-left[
+
+**Qual é a probabilidade de obtermos de 0 a 12 mutações por ciclo de replicação nesse genoma?**
+
+
+```r
+lambda &lt;- 5
+k &lt;- 0:12
+tabela_dpois &lt;- data.frame(
+    Mutacoes = k,
+*   Probabilidade = dpois(k, lambda)
+)
+tabela_dpois$Porcentagem &lt;- round(tabela_dpois$Probabilidade * 100, 3)
+gt::gt(tabela_dpois)
+```
+]
+.pull-right[
+<div id="bknbwbqnhz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#bknbwbqnhz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bknbwbqnhz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bknbwbqnhz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bknbwbqnhz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bknbwbqnhz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bknbwbqnhz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bknbwbqnhz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bknbwbqnhz .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bknbwbqnhz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bknbwbqnhz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bknbwbqnhz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bknbwbqnhz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bknbwbqnhz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#bknbwbqnhz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bknbwbqnhz .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bknbwbqnhz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bknbwbqnhz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#bknbwbqnhz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bknbwbqnhz .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#bknbwbqnhz .gt_left {
+  text-align: left;
+}
+
+#bknbwbqnhz .gt_center {
+  text-align: center;
+}
+
+#bknbwbqnhz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bknbwbqnhz .gt_font_normal {
+  font-weight: normal;
+}
+
+#bknbwbqnhz .gt_font_bold {
+  font-weight: bold;
+}
+
+#bknbwbqnhz .gt_font_italic {
+  font-style: italic;
+}
+
+#bknbwbqnhz .gt_super {
+  font-size: 65%;
+}
+
+#bknbwbqnhz .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Mutacoes</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Probabilidade</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Porcentagem</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">0</td>
+<td class="gt_row gt_right">0.006737947</td>
+<td class="gt_row gt_right">0.674</td></tr>
+    <tr><td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">0.033689735</td>
+<td class="gt_row gt_right">3.369</td></tr>
+    <tr><td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">0.084224337</td>
+<td class="gt_row gt_right">8.422</td></tr>
+    <tr><td class="gt_row gt_right">3</td>
+<td class="gt_row gt_right">0.140373896</td>
+<td class="gt_row gt_right">14.037</td></tr>
+    <tr><td class="gt_row gt_right">4</td>
+<td class="gt_row gt_right">0.175467370</td>
+<td class="gt_row gt_right">17.547</td></tr>
+    <tr><td class="gt_row gt_right">5</td>
+<td class="gt_row gt_right">0.175467370</td>
+<td class="gt_row gt_right">17.547</td></tr>
+    <tr><td class="gt_row gt_right">6</td>
+<td class="gt_row gt_right">0.146222808</td>
+<td class="gt_row gt_right">14.622</td></tr>
+    <tr><td class="gt_row gt_right">7</td>
+<td class="gt_row gt_right">0.104444863</td>
+<td class="gt_row gt_right">10.444</td></tr>
+    <tr><td class="gt_row gt_right">8</td>
+<td class="gt_row gt_right">0.065278039</td>
+<td class="gt_row gt_right">6.528</td></tr>
+    <tr><td class="gt_row gt_right">9</td>
+<td class="gt_row gt_right">0.036265577</td>
+<td class="gt_row gt_right">3.627</td></tr>
+    <tr><td class="gt_row gt_right">10</td>
+<td class="gt_row gt_right">0.018132789</td>
+<td class="gt_row gt_right">1.813</td></tr>
+    <tr><td class="gt_row gt_right">11</td>
+<td class="gt_row gt_right">0.008242177</td>
+<td class="gt_row gt_right">0.824</td></tr>
+    <tr><td class="gt_row gt_right">12</td>
+<td class="gt_row gt_right">0.003434240</td>
+<td class="gt_row gt_right">0.343</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+]
+]
+
+.panel[.panel-name[Visualização]
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+]
+
+---
+
+## Distribuição Normal
+
+.panelset.sideways[
+.panel[.panel-name[Definição]
+Distribuição tipicamente associada a variáveis contínuas, como altura, peso, etc. Quando a distribuição de uma variável se aproxima de uma distribuição normal, podemos calcular a probabilidade de obtermos um valor dentro de qualquer intervalo com:
+
+$$
+\mbox{Pr}(a &lt; x &lt; b) = \int_a^b \frac{1}{\sqrt{2\pi\sigma^2}} \exp{\left( \frac{-(x-\mu)^2}{2 \sigma^2} \right)} \, dx
+$$
+
+]
+
+.panel[.panel-name[Ex. (1)]
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+
+```r
+mean(female_control$Bodyweight)
+```
+
+```
+## [1] 23.89338
+```
+]
+
+.pull-right[
+
+```r
+sd(female_control$Bodyweight)
+```
+
+```
+## [1] 3.424056
+```
+]
+
+]
+
+.panel[.panel-name[Ex. (2)]
+Tomando ao acaso, qual a probabilidade de obtermos um camundongo cujo peso é inferior a 16 g? E superior a 30 g?
+
+
+```r
+# P(inferior a 16 g)
+pnorm(16, mean = 23.893, sd = 3.424)
+```
+
+```
+## [1] 0.01057773
+```
+
+```r
+# P(superior a 30 g)
+1 - pnorm(30, mean = 23.893, sd = 3.424)
+```
+
+```
+## [1] 0.03724544
+```
+]
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Relações entre variáveis
+
+---
+
+## Correlação
+
+.panelset.sideways[
+.panel[.panel-name[Definição]
+Medida de força e direção da associação entre duas variáveis, medida com um **coeficiente de correlação** que varia de -1 a 1.
+
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Exemplo (1)]
+
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Exemplo (2)]
+
+- **Coeficiente de correlação de Pearson** - `\(r\)`
+
+Método paramétrico - assume que ambas as variáveis seguem distribuição normal com média `\(\mu\)` e variância `\(\sigma^2\)`.
+
+
+```r
+cor.test(altura$child, altura$parent)
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  altura$child and altura$parent
+## t = 15.711, df = 926, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.4064067 0.5081153
+## sample estimates:
+##       cor 
+## 0.4587624
+```
+]
+
+.panel[.panel-name[Exemplo (3)]
+- **Coeficiente de correlação de Spearman** - `\(\rho\)`
+
+Método não-paramétrico, baseado em *ranks*.
+
+
+```r
+cor.test(altura$child, altura$parent, method = "spearman")
+```
+
+```
+## 
+## 	Spearman's rank correlation rho
+## 
+## data:  altura$child and altura$parent
+## S = 76569964, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.4251345
+```
+
+]
+]
+
+---
+
+## Regressão
+
+&lt;br /&gt;
+Usada para medir como a mudança em uma variável influencia a mudança em outra. 
+
+- `\(X_i\)` - variável preditora ou variável independente
+- `\(Y_i\)` - variável resposta ou variável dependente. 
+
+Existem diversos modelos de regressão (*e.g.,* **linear**, quadrática, polinomial, etc.).
+
+---
+
+## Modelos lineares simples
+
+&lt;br /&gt;
+Definido matematicamente da seguinte forma:
+
+$$
+Y_i = \beta_0 + \beta_1X_i + \epsilon_i
+$$
+
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Modelos lineares simples
+
+&lt;br /&gt;
+O melhor modelo de regressão linear é aquele que minimiza a **soma dos quadrados dos resíduos**, sendo os resíduos a diferença entre o valor observado e o valor predito no modelo.
+
+&lt;img src="modelos_estatisticos_files/figure-html/lm2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Exemplo: predição de altura dos filhos
+
+
+
+
+```r
+modelo_lm &lt;- lm(child ~ parent, data = altura)
+summary(modelo_lm)
+```
+
+```
+## 
+## Call:
+## lm(formula = child ~ parent, data = altura)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.8050 -1.3661  0.0487  1.6339  5.9264 
+## 
+## Coefficients:
+##             Estimate Std. Error t value            Pr(&gt;|t|)    
+## (Intercept) 23.94153    2.81088   8.517 &lt;0.0000000000000002 ***
+## parent       0.64629    0.04114  15.711 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.239 on 926 degrees of freedom
+## Multiple R-squared:  0.2105,	Adjusted R-squared:  0.2096 
+## F-statistic: 246.8 on 1 and 926 DF,  p-value: &lt; 0.00000000000000022
+```
+
+---
+
+## Exemplo: predição de altura dos filhos
+
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+
+$$
+A_{filho} = 23.94 + 0.65 A_{pai}
+$$
+
+---
+
+## Exemplo: predição de altura dos filhos
+
+&lt;br /&gt;
+Qual é a altura predita de uma criança cujo pai tem 65 polegadas de altura? E de uma criança cujo pai tem 67 polegadas?
+
+
+```r
+pais &lt;- data.frame(parent = c(65, 67))
+predict(modelo_lm, newdata = pais)
+```
+
+```
+##        1        2 
+## 65.95042 67.24300
+```
+
+---
+
+## Regressão linear multivariada
+
+&lt;br /&gt;
+Regressão usando 2 ou mais variáveis independentes. Pode ser expressa por:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{i,1} + \beta_2 X_{i,2} + ... + \beta_p X_{i,p} + \epsilon_i
+$$
+
+Ao levar em consideração outras variáveis, podemos aumentar a acurácia do nosso modelo ajustado.
+
+---
+
+## Exemplo: regressão linear multivariada
+
+Conjunto de dados **swiss**: medida de fertilidade e indicadores socioeconômicos de 47 províncias francófonas da Suiça em 1888.
+
+
+```
+##              Fertility Agriculture Examination Education Catholic
+## Courtelary        80.2        17.0          15        12     9.96
+## Delemont          83.1        45.1           6         9    84.84
+## Franches-Mnt      92.5        39.7           5         5    93.40
+## Moutier           85.8        36.5          12         7    33.77
+## Neuveville        76.9        43.5          17        15     5.16
+## Porrentruy        76.1        35.3           9         7    90.57
+##              Infant.Mortality
+## Courtelary               22.2
+## Delemont                 22.2
+## Franches-Mnt             20.2
+## Moutier                  20.3
+## Neuveville               20.6
+## Porrentruy               26.6
+```
+
+---
+
+## Exemplo: regressão linear multivariada
+
+
+```r
+summary(lm(Fertility ~ ., data = swiss))
+```
+
+```
+## 
+## Call:
+## lm(formula = Fertility ~ ., data = swiss)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -15.2743  -5.2617   0.5032   4.1198  15.3213 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value    Pr(&gt;|t|)    
+## (Intercept)      66.91518   10.70604   6.250 0.000000191 ***
+## Agriculture      -0.17211    0.07030  -2.448     0.01873 *  
+## Examination      -0.25801    0.25388  -1.016     0.31546    
+## Education        -0.87094    0.18303  -4.758 0.000024306 ***
+## Catholic          0.10412    0.03526   2.953     0.00519 ** 
+## Infant.Mortality  1.07705    0.38172   2.822     0.00734 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.165 on 41 degrees of freedom
+## Multiple R-squared:  0.7067,	Adjusted R-squared:  0.671 
+## F-statistic: 19.76 on 5 and 41 DF,  p-value: 0.0000000005594
+```
+
+---
+
+## Corrigindo para termos de interação
+
+- Variáveis independentes com efeito aditivo:
+
+
+```r
+lm(VD ~ VI1 + VI2)
+```
+
+- Variáveis independentes com efeito sinérgico (retas se cruzando)
+
+
+```r
+lm(VD ~ VI1 * VI2)
+```
+
+$$
+Y_i = \beta_0 + \beta_1 X_{i,1} + \beta_2 X_{i,2} + \beta_3 X_{i, 1}X_{i,2} +  \epsilon_i
+$$
+
+---
+
+## Modelos lineares de efeitos mistos
+
+&lt;br /&gt;
+Usado quando as observações não são independentes entre si, pois estão agrupadas de alguma forma (*e.g.,* local de coleta, população, blocos, etc). 
+
+Incluem efeitos fixos (os mesmos do modelo linear simples) e efeitos aleatórios (variável que agrupa as observações). 
+
+Podem ser definidos como:
+
+$$
+Y_i = \underbrace{\beta X_i}_\text{Efeito fixo} + \underbrace{Z\gamma + e_i}_\text{Efeito aleatório}
+$$
+
+---
+
+## Exemplo: delineamento em blocos
+
+&lt;br /&gt;
+.pull-left-1[
+
+```
+##   concentracao bloco fertilizante
+## 1        40.89     1            2
+## 2        37.99     1            5
+## 3        37.18     1            4
+## 4        34.98     1            1
+## 5        34.89     1            6
+## 6        42.07     1            3
+```
+]
+
+.pull-right-2[
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Exemplo: delineamento em blocos
+
+.pull-left[
+
+```r
+modelo_misto &lt;- lmer(concentracao ~ fertilizante + (1|bloco), data = trigo)
+emmeans::emmeans(modelo_misto, 
+                 pairwise ~ fertilizante, 
+                 adjust = "Tukey")$emmeans
+```
+
+```
+##  fertilizante emmean   SE   df lower.CL upper.CL
+##  1              38.3 2.06 6.78     33.4     43.2
+##  2              44.0 2.06 6.78     39.1     48.9
+##  3              46.8 2.06 6.78     41.9     51.7
+##  4              40.6 2.06 6.78     35.7     45.5
+##  5              39.5 2.06 6.78     34.6     44.4
+##  6              43.2 2.06 6.78     38.3     48.1
+## 
+## Degrees-of-freedom method: kenward-roger 
+## Confidence level used: 0.95
+```
+]
+
+.pull-right[
+
+```r
+emmeans::emmeans(modelo_misto, pairwise ~ fertilizante, 
+                 adjust = "Tukey")$contrasts
+```
+
+```
+##  contrast estimate  SE df t.ratio p.value
+##  1 - 2      -5.755 1.9 15  -3.033  0.0742
+##  1 - 3      -8.492 1.9 15  -4.476  0.0049
+##  1 - 4      -2.337 1.9 15  -1.232  0.8150
+##  1 - 5      -1.232 1.9 15  -0.650  0.9849
+##  1 - 6      -4.947 1.9 15  -2.607  0.1553
+##  2 - 3      -2.737 1.9 15  -1.443  0.7025
+##  2 - 4       3.417 1.9 15   1.801  0.4934
+##  2 - 5       4.522 1.9 15   2.383  0.2226
+##  2 - 6       0.807 1.9 15   0.426  0.9978
+##  3 - 4       6.155 1.9 15   3.244  0.0505
+##  3 - 5       7.260 1.9 15   3.826  0.0168
+##  3 - 6       3.545 1.9 15   1.868  0.4559
+##  4 - 5       1.105 1.9 15   0.582  0.9907
+##  4 - 6      -2.610 1.9 15  -1.376  0.7402
+##  5 - 6      -3.715 1.9 15  -1.958  0.4079
+## 
+## Degrees-of-freedom method: kenward-roger 
+## P value adjustment: tukey method for comparing a family of 6 estimates
+```
+]
+
+---
+
+## Modelos mistos em GWAS
+
+&lt;br /&gt;
+Os GWAS buscam identificar variantes (SNPs) associados a fenótipos de interesse, mas o parentesco entre os indivíduos é um fator de confusão.
+
+&lt;img src="GQ_texto/gwas_lmm.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Modelos lineares generalizados (GLMs)
+
+&lt;br /&gt;
+Extensões de modelos lineares, pois são mais permissivos em relação a algumas premissas.
+
+.pull-left[
+**Modelo linear simples:**
+
+1. Observações ($Y_i$) independentes
+2. Resíduos seguem distribuição normal com média `\(\mu\)` e variância `\(\sigma^2\)`
+3. `\(\mu_i = X_i^T \beta\)`
+]
+
+.pull-right[
+**Modelo linear generalizado:**
+
+1. Observações ($Y_i$) independentes
+2. Resíduos seguem qualquer distribuição da família exponencial
+3. `\(g(\mu_i) = X_i^T \beta\)`, onde g é a função de link
+]
+
+---
+
+## Modelos lineares generalizados
+
+&lt;br /&gt;
+Distribuições da família exponencial e suas funções de link.
+
+<div id="lgdgwrdyao" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#lgdgwrdyao .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#lgdgwrdyao .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#lgdgwrdyao .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#lgdgwrdyao .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#lgdgwrdyao .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#lgdgwrdyao .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#lgdgwrdyao .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#lgdgwrdyao .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#lgdgwrdyao .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#lgdgwrdyao .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#lgdgwrdyao .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#lgdgwrdyao .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#lgdgwrdyao .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#lgdgwrdyao .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgdgwrdyao .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lgdgwrdyao .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#lgdgwrdyao .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#lgdgwrdyao .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lgdgwrdyao .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#lgdgwrdyao .gt_left {
+  text-align: left;
+}
+
+#lgdgwrdyao .gt_center {
+  text-align: center;
+}
+
+#lgdgwrdyao .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#lgdgwrdyao .gt_font_normal {
+  font-weight: normal;
+}
+
+#lgdgwrdyao .gt_font_bold {
+  font-weight: bold;
+}
+
+#lgdgwrdyao .gt_font_italic {
+  font-style: italic;
+}
+
+#lgdgwrdyao .gt_super {
+  font-size: 65%;
+}
+
+#lgdgwrdyao .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Família</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Função.de.link</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Binomial</td>
+<td class="gt_row gt_left">logit</td></tr>
+    <tr><td class="gt_row gt_left">Gaussiana</td>
+<td class="gt_row gt_left">identidade</td></tr>
+    <tr><td class="gt_row gt_left">Gama</td>
+<td class="gt_row gt_left">inversa</td></tr>
+    <tr><td class="gt_row gt_left">Gaussiana inversa</td>
+<td class="gt_row gt_left">1/mu^2</td></tr>
+    <tr><td class="gt_row gt_left">Poisson</td>
+<td class="gt_row gt_left">log</td></tr>
+    <tr><td class="gt_row gt_left">Quasi-binomial</td>
+<td class="gt_row gt_left">logit</td></tr>
+    <tr><td class="gt_row gt_left">Quasi-Poisson</td>
+<td class="gt_row gt_left">log</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+---
+
+## Exemplo: regressão logística
+
+&lt;br /&gt;
+Objetivo: predizer se o indivíduo tem diabetes do tipo 2 usando a concentração de glicose no sangue.
+
+
+```
+##     pregnant glucose pressure triceps insulin mass pedigree age diabetes
+## 637        5     104       74      NA      NA 28.8    0.153  48      neg
+## 254        0      86       68      32      NA 35.8    0.238  25      neg
+## 18         7     107       74      NA      NA 29.6    0.254  31      pos
+## 663        8     167      106      46     231 37.6    0.165  43      pos
+## 280        2     108       62      10     278 25.3    0.881  22      neg
+## 534        6      91       NA      NA      NA 29.8    0.501  31      neg
+```
+
+---
+
+## Exemplo: regressão logística
+
+
+```r
+modelo &lt;- glm(diabetes ~ glucose, data = diabetes_dados, family = binomial)
+summary(modelo)
+```
+
+```
+## 
+## Call:
+## glm(formula = diabetes ~ glucose, family = binomial, data = diabetes_dados)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.1829  -0.7758  -0.5083   0.8246   2.2914  
+## 
+## Coefficients:
+##              Estimate Std. Error z value            Pr(&gt;|z|)    
+## (Intercept) -5.719815   0.443532  -12.90 &lt;0.0000000000000002 ***
+## glucose      0.040637   0.003421   11.88 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 964.62  on 745  degrees of freedom
+## Residual deviance: 769.56  on 744  degrees of freedom
+##   (4 observations deleted due to missingness)
+## AIC: 773.56
+## 
+## Number of Fisher Scoring iterations: 4
+```
+
+---
+
+## Exemplo: regressão logística
+
+
+```r
+newdata &lt;- data.frame(glucose = c(20,  180))
+prob &lt;- predict(modelo, newdata, type = "response")
+prob
+```
+
+```
+##          1          2 
+## 0.00733986 0.83130506
+```
+
+```r
+ifelse(prob &gt; 0.5, "pos", "neg")
+```
+
+```
+##     1     2 
+## "neg" "pos"
+```
+
+---
+
+## Exemplo: regressão logística
+
+&lt;br /&gt;
+&lt;img src="modelos_estatisticos_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## *Big data* na agricultura
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="GQ_texto/ml.png" alt="Figure extraída de Benos et al., 2021" width="70%" /&gt;
+&lt;p class="caption"&gt;Figure extraída de Benos et al., 2021&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+class: sydney-yellow, middle, center
+
+## Contato
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm0 48v40.805c-22.422 18.259-58.168 46.651-134.587 106.49-16.841 13.247-50.201 45.072-73.413 44.701-23.208.375-56.579-31.459-73.413-44.701C106.18 199.465 70.425 171.067 48 152.805V112h416zM48 400V214.398c22.914 18.251 55.409 43.862 104.938 82.646 21.857 17.205 60.134 55.186 103.062 54.955 42.717.231 80.509-37.199 103.053-54.947 49.528-38.783 82.032-64.401 104.947-82.653V400H48z"&gt;&lt;/path&gt;&lt;/svg&gt;  [fabricio_almeidasilva@hotmail.com](mailto:fabricio_almeidasilva@hotmail.com)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

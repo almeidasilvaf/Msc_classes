@@ -76,11 +76,17 @@ To specify the margin of the first title h1
 }
 .sydney-yellow {
   background-color: #FFB800;
+  color: #003366;
 }
 .sydney-red {
   background-color: #e64626;
   color: white;
 }
+.sydney-grey {
+  background-color: #E5E7E9;
+  color: #0B6623;
+}
+
 /* segue */
 .segue {
   text-align:center;
@@ -357,12 +363,12 @@ slides > slide {
 /*
 }
 */
-
+ 
 .title-slide {
-  /*background-image: url(Logo_VENANCIO_RG_white.png);*/
-  background-position: 95% 95%;
-  background-size: 280px;
-  background-color: #0148A4;
+  background-image: url(cover_image.png);
+  /*background-position: 95% 95%;*/
+  background-size: cover;
+  background-color: #003366;
   text-align:left;
   vertical-align: top;
   text-shadow: none;
@@ -424,7 +430,7 @@ blockquote, .blockquote {
   border-right: solid 2px #0148A4;
   box-shadow: 0 0 6px rgba(0,0,0,0.5);
   /* background-color: #e64626; */
-  color: black;
+  color: #e64626;
   padding: 0.5em;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
