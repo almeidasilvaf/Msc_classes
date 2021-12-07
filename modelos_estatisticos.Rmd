@@ -427,9 +427,7 @@ ggplot(altura, aes(x = parent, y = child)) +
 ```
 
 
-$$
-A_{filho} = 23.94 + 0.65 A_{pai}
-$$
+$$A_{filho} = 23.94 + 0.65 A_{pai}$$
 
 ---
 
@@ -450,9 +448,7 @@ predict(modelo_lm, newdata = pais)
 <br />
 Regressão usando 2 ou mais variáveis independentes. Pode ser expressa por:
 
-$$
-Y_i = \beta_0 + \beta_1 X_{i,1} + \beta_2 X_{i,2} + ... + \beta_p X_{i,p} + \epsilon_i
-$$
+$$Y_i = \beta_0 + \beta_1 X_{i,1} + \beta_2 X_{i,2} + ... + \beta_p X_{i,p} + \epsilon_i$$
 
 Ao levar em consideração outras variáveis, podemos aumentar a acurácia do nosso modelo ajustado.
 
@@ -490,9 +486,7 @@ lm(VD ~ VI1 + VI2)
 lm(VD ~ VI1 * VI2)
 ```
 
-$$
-Y_i = \beta_0 + \beta_1 X_{i,1} + \beta_2 X_{i,2} + \beta_3 X_{i, 1}X_{i,2} +  \epsilon_i
-$$
+$$Y_i = \beta_0 + \beta_1 X_{i,1} + \beta_2 X_{i,2} + \beta_3 X_{i, 1}X_{i,2} +  \epsilon_i$$
 
 ---
 
@@ -505,9 +499,7 @@ Incluem efeitos fixos (os mesmos do modelo linear simples) e efeitos aleatórios
 
 Podem ser definidos como:
 
-$$
-Y_i = \underbrace{\beta X_i}_\text{Efeito fixo} + \underbrace{Z\gamma + e_i}_\text{Efeito aleatório}
-$$
+$$Y_i = \underbrace{\beta X_i}_\text{Efeito fixo} + \underbrace{Z\gamma + e_i}_\text{Efeito aleatório}$$
 
 ---
 
