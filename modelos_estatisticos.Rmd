@@ -2,7 +2,7 @@
 title: "Modelos estatísticos: fundamentos e aplicações em Genética Quantitativa"
 author: "Fabrício de Almeida Silva"
 institute: "LQFPP / PGBV / UENF"
-date: "Junho, 2021"
+date: "Dezembro, 2021"
 output:
   xaringan::moon_reader:
     lib_dir: libs
